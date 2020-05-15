@@ -1,12 +1,15 @@
 public class Yatzy {
 
-    public int yatzy()
-    {
-        int[] counts = new int[6];
+    private static final int NUMBER_DICE=5;
+
+    public int yatzy() {
+        int[] counts = new int[NUMBER_DICE];
+
         for (int die : dice)
             counts[die-1]++;
-        for (int i = 0; i != 6; i++)
-            if (counts[i] == 5)
+
+        for (int count : counts)
+            if (count == NUMBER_DICE)
                 return 50;
         return 0;
     }

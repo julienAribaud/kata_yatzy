@@ -33,6 +33,8 @@ public class YatzyTest {
         assertEquals(expected, yatzy.yatzy());
         yatzy=new Yatzy(5,3,3,3,3);
         assertEquals(expected, yatzy.yatzy());
+        yatzy=new Yatzy(3,3,3,3,5);
+        assertEquals(expected, yatzy.yatzy());
     }
 
     @Test public void test_1s() {
