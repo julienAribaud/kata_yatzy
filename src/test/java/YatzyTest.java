@@ -6,73 +6,62 @@ public class YatzyTest {
 
     @Test
     public void chance_scores_sum_of_all_dice() {
-
-        Yatzy yatzy=new Yatzy(2,3,4,5,1);
-        assertEquals(15, yatzy.chance());
-        yatzy=new Yatzy(3,3,4,5,1);
-        assertEquals(16, yatzy.chance());
+        assertEquals(15, new Yatzy(2,3,4,5,1).chance());
+        assertEquals(16, new Yatzy(3,3,4,5,1).chance());
     }
 
     @Test
     public void yatzy_scores_50() {
         int expected =50;
-        Yatzy yatzy=new Yatzy(1,1,1,1,1);
-        assertEquals(expected, yatzy.yatzy());
-        yatzy=new Yatzy(2,2,2,2,2);
-        assertEquals(expected, yatzy.yatzy());
-        yatzy=new Yatzy(3,3,3,3,3);
-        assertEquals(expected, yatzy.yatzy());
+        assertEquals(expected, new Yatzy(1,1,1,1,1).yatzy());
+        assertEquals(expected, new Yatzy(2,2,2,2,2).yatzy());
+        assertEquals(expected, new Yatzy(3,3,3,3,3).yatzy());
     }
 
     @Test
     public void yatzy_scores_0() {
         int expected =0;
-        Yatzy yatzy=new Yatzy(1,1,2,1,1);
-        assertEquals(expected, yatzy.yatzy());
-        yatzy=new Yatzy(2,2,2,4,2);
-        assertEquals(expected, yatzy.yatzy());
-        yatzy=new Yatzy(5,3,3,3,3);
-        assertEquals(expected, yatzy.yatzy());
-        yatzy=new Yatzy(3,3,3,3,5);
-        assertEquals(expected, yatzy.yatzy());
+        assertEquals(expected, new Yatzy(3,3,3,3,5).yatzy());
+        assertEquals(expected, new Yatzy(2,2,2,4,2).yatzy());
+        assertEquals(expected, new Yatzy(5,3,3,3,3).yatzy());
+        assertEquals(expected, new Yatzy(3,3,3,3,5).yatzy());
     }
 
-    @Test public void test_1s() {
-        assertEquals(1, Yatzy.ones(1, 2, 3, 4, 5));
-        assertEquals(2, Yatzy.ones(1,2,1,4,5));
-        assertEquals(0, Yatzy.ones(6,2,2,4,5));
-        assertEquals(4, Yatzy.ones(1,2,1,1,1));
+    @Test public void ones_called_score1_when_1() {
+        assertEquals(1, new Yatzy(1, 2, 3, 4, 5).ones());
+        assertEquals(2, new Yatzy(1, 2, 1, 4, 5).ones());
+        assertEquals(0, new Yatzy(6, 2, 3, 4, 5).ones());
+        assertEquals(4, new Yatzy(1, 1, 3, 1, 1).ones());
     }
 
     @Test
-    public void test_2s() {
-        assertEquals(4, Yatzy.twos(1,2,3,2,6));
-        assertEquals(10, Yatzy.twos(2,2,2,2,2));
+    public void two_called_score2_when_2() {
+        assertEquals(4, new Yatzy(1,2,3,2,6).twos());
+        assertEquals(10, new Yatzy(2,2,2,2,2).twos());
     }
 
     @Test
-    public void test_threes() {
-        assertEquals(6, Yatzy.threes(1,2,3,2,3));
-        assertEquals(12, Yatzy.threes(2,3,3,3,3));
+    public void three_called_score3_when_3() {
+        assertEquals(6, new Yatzy(1,2,3,2,3).threes());
+        assertEquals(12,new Yatzy(2,3,3,3,3).threes());
     }
 
     @Test
-    public void fours_test() 
-    {
+    public void four_called_score4_when_4() {
         assertEquals(12, new Yatzy(4,4,4,5,5).fours());
         assertEquals(8, new Yatzy(4,4,5,5,5).fours());
         assertEquals(4, new Yatzy(4,5,5,5,5).fours());
     }
 
     @Test
-    public void fives() {
+    public void five_called_score5_when_5() {
         assertEquals(10, new Yatzy(4,4,4,5,5).fives());
         assertEquals(15, new Yatzy(4,4,5,5,5).fives());
         assertEquals(20, new Yatzy(4,5,5,5,5).fives());
     }
 
     @Test
-    public void sixes_test() {
+    public void six_called_score6_when_6() {
         assertEquals(0, new Yatzy(4,4,4,5,5).sixes());
         assertEquals(6, new Yatzy(4,4,6,5,5).sixes());
         assertEquals(18, new Yatzy(6,5,6,6,5).sixes());
