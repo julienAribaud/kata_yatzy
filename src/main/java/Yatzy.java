@@ -68,25 +68,22 @@ public class Yatzy {
         return 0;
     }
 
-    public static int two_pair(int d1, int d2, int d3, int d4, int d5)
-    {
-        int[] counts = new int[6];
-        counts[d1-1]++;
-        counts[d2-1]++;
-        counts[d3-1]++;
-        counts[d4-1]++;
-        counts[d5-1]++;
-        int n = 0;
-        int score = 0;
-        for (int i = 0; i < 6; i += 1)
-            if (counts[6-i-1] >= 2) {
-                n++;
-                score += (6-i);
-            }        
-        if (n == 2)
-            return score * 2;
-        else
-            return 0;
+    public int two_pair() {
+        int[] counts= countDiceValues();
+
+        boolean gotDouble=false;
+        int previousDoubleSum=0;
+
+        for (int i=0;i<counts.length;i++) {
+            if (counts[i] >= 2) {
+                if (gotDouble) {
+                    return (i + 1) * 2 + previousDoubleSum;
+                }
+                previousDoubleSum = (i + 1) * 2;
+                gotDouble = true;
+            }
+        }
+        return 0;
     }
 
     public static int four_of_a_kind(int _1, int _2, int d3, int d4, int d5)
