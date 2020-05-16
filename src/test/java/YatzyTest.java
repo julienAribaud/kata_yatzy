@@ -27,7 +27,8 @@ public class YatzyTest {
         assertEquals(expected, new Yatzy(3,3,3,3,5).yatzy());
     }
 
-    @Test public void ones_called_score1_when_1() {
+    @Test
+    public void ones_called_score1_when_1() {
         assertEquals(1, new Yatzy(1, 2, 3, 4, 5).ones());
         assertEquals(2, new Yatzy(1, 2, 1, 4, 5).ones());
         assertEquals(0, new Yatzy(6, 2, 3, 4, 5).ones());
@@ -77,7 +78,7 @@ public class YatzyTest {
     }
 
     @Test
-    public void two_Pair() {
+    public void two_Pair_called() {
         assertEquals(16, new Yatzy(3,3,5,4,5).two_pair());
         assertEquals(16, new Yatzy(3,3,5,5,5).two_pair());
         assertEquals(0, new Yatzy(3,3,5,6,1).two_pair());
@@ -115,7 +116,7 @@ public class YatzyTest {
 
     @Test
     public void fullHouse() {
-        assertEquals(18, Yatzy.fullHouse(6,2,2,2,6));
-        assertEquals(0, Yatzy.fullHouse(2,3,4,5,6));
+        assertEquals(18, new Yatzy(6,2,2,2,6).fullHouse());
+        assertEquals(0, new Yatzy(2,3,4,5,6).fullHouse());
     }
 }
