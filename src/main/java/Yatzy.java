@@ -3,6 +3,11 @@ public class Yatzy {
     private static final int NUMBER_OF_DICE =5;
     private static final int MAX_VALUE =6;
 
+    private static final int DEFAULT_VALUE_INVALID=0;
+    private static final int YATZY_VALUE=50;
+    private static final int SMALL_STRAIGHT_VALUE=15;
+    private static final int BIG_STRAIGHT_VALUE=20;
+
     protected int[] dices= new int[NUMBER_OF_DICE];
 
     public Yatzy(int d1, int d2, int d3, int d4, int d5) {
@@ -24,8 +29,8 @@ public class Yatzy {
     public int yatzy() {
         for (int count : countDiceValues())
             if (count == NUMBER_OF_DICE)
-                return 50;
-        return 0;
+                return YATZY_VALUE;
+        return DEFAULT_VALUE_INVALID;
     }
 
     private int sumValueCalled(int valueCalled){
@@ -53,7 +58,7 @@ public class Yatzy {
             if (counts[i] >= numberWanted)
                 return (i + 1) * numberWanted;
 
-        return 0;
+        return DEFAULT_VALUE_INVALID;
     }
 
     public int ones() { return sumValueCalled(1); }
@@ -72,19 +77,19 @@ public class Yatzy {
     public int two_pair() {
         int[] counts= countDiceValues();
 
-        boolean gotDouble=false;
+        boolean gotDoubleYet=false;
         int previousDoubleSum=0;
 
         for (int i=0;i<counts.length;i++) {
             if (counts[i] >= 2) {
-                if (gotDouble) {
+                if (gotDoubleYet) {
                     return (i + 1) * 2 + previousDoubleSum;
                 }
                 previousDoubleSum = (i + 1) * 2;
-                gotDouble = true;
+                gotDoubleYet = true;
             }
         }
-        return 0;
+        return DEFAULT_VALUE_INVALID;
     }
 
     public int pair() {
@@ -113,8 +118,8 @@ public class Yatzy {
             tallies[2] == 1 &&
             tallies[3] == 1 &&
             tallies[4] == 1)
-            return 15;
-        return 0;
+            return SMALL_STRAIGHT_VALUE;
+        return DEFAULT_VALUE_INVALID;
     }
 
     public static int largeStraight(int d1, int d2, int d3, int d4, int d5)
@@ -131,8 +136,8 @@ public class Yatzy {
             tallies[3] == 1 &&
             tallies[4] == 1
             && tallies[5] == 1)
-            return 20;
-        return 0;
+            return BIG_STRAIGHT_VALUE;
+        return DEFAULT_VALUE_INVALID;
     }
 
     public static int fullHouse(int d1, int d2, int d3, int d4, int d5)
@@ -169,7 +174,7 @@ public class Yatzy {
         if (_2 && _3)
             return _2_at * 2 + _3_at * 3;
         else
-            return 0;
+            return DEFAULT_VALUE_INVALID;
     }
 }
 
