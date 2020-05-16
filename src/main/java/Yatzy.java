@@ -1,7 +1,9 @@
 public class Yatzy {
 
-    private static final int NUMBER_DICE=5;
-    protected int[] dices= new int[NUMBER_DICE];
+    private static final int NUMBER_OF_DICE =5;
+    private static final int MAX_VALUE =6;
+
+    protected int[] dices= new int[NUMBER_OF_DICE];
 
     public Yatzy(int d1, int d2, int d3, int d4, int d5) {
         dices[0] = d1;
@@ -20,57 +22,49 @@ public class Yatzy {
     }
 
     public int yatzy() {
-        int[] counts = new int[NUMBER_DICE];
-
-        for (int die : dices)
-            counts[die-1]++;
-
-        for (int count : counts)
-            if (count == NUMBER_DICE)
+        for (int count : countDiceValues())
+            if (count == NUMBER_OF_DICE)
                 return 50;
         return 0;
     }
 
-    private int countValueCalled(int valueCalled){
-        int count=0;
+    private int sumValueCalled(int valueCalled){
+        int sum=0;
         for(int dice:dices){
             if(dice==valueCalled)
-                count+=valueCalled;
+                sum+=valueCalled;
         }
-        return count;
+        return sum;
     }
 
-    public int ones(){
-        return countValueCalled(1);
+    private int[] countDiceValues(){
+        int[] counts = new int[MAX_VALUE];
+
+        for (int dice : dices)
+            counts[dice-1]++;
+
+        return counts;
     }
+
+    public int ones() { return sumValueCalled(1); }
     public int twos(){
-        return countValueCalled(2);
+        return sumValueCalled(2);
     }
     public int threes(){
-        return countValueCalled(3);
+        return sumValueCalled(3);
     }
     public int fours(){
-       return countValueCalled(4);
+       return sumValueCalled(4);
     }
-    public int fives() {
-        return countValueCalled(5);
-    }
-    public int sixes() {
-        return countValueCalled(6);
-    }
+    public int fives() { return sumValueCalled(5); }
+    public int sixes() { return sumValueCalled(6); }
 
-    public static int score_pair(int d1, int d2, int d3, int d4, int d5)
-    {
-        int[] counts = new int[6];
-        counts[d1-1]++;
-        counts[d2-1]++;
-        counts[d3-1]++;
-        counts[d4-1]++;
-        counts[d5-1]++;
-        int at;
-        for (at = 0; at != 6; at++)
-            if (counts[6-at-1] >= 2)
-                return (6-at)*2;
+    public int pair() {
+        int[] counts= countDiceValues();
+
+        for (int i=counts.length-1;i>=0;i--)
+           if(counts[i]>=2)
+               return (i+1)*2;
         return 0;
     }
 
