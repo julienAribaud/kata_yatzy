@@ -103,38 +103,26 @@ public class Yatzy {
         return searchAndCalculSameValueNTimes(4);
     }
 
-    public static int smallStraight(int d1, int d2, int d3, int d4, int d5)
-    {
-        int[] tallies;
-        tallies = new int[6];
-        tallies[d1-1] += 1;
-        tallies[d2-1] += 1;
-        tallies[d3-1] += 1;
-        tallies[d4-1] += 1;
-        tallies[d5-1] += 1;
-        if (tallies[0] == 1 &&
-            tallies[1] == 1 &&
-            tallies[2] == 1 &&
-            tallies[3] == 1 &&
-            tallies[4] == 1)
+    public int smallStraight() {
+        int[] count=countDiceValues();
+
+        if (count[0] == 1 &&
+            count[1] == 1 &&
+            count[2] == 1 &&
+            count[3] == 1 &&
+            count[4] == 1)
             return SMALL_STRAIGHT_VALUE;
         return DEFAULT_VALUE_INVALID;
     }
 
-    public static int largeStraight(int d1, int d2, int d3, int d4, int d5)
-    {
-        int[] tallies;
-        tallies = new int[6];
-        tallies[d1-1] += 1;
-        tallies[d2-1] += 1;
-        tallies[d3-1] += 1;
-        tallies[d4-1] += 1;
-        tallies[d5-1] += 1;
-        if (tallies[1] == 1 &&
-            tallies[2] == 1 &&
-            tallies[3] == 1 &&
-            tallies[4] == 1
-            && tallies[5] == 1)
+    public int largeStraight() {
+        int[] count=countDiceValues();
+
+        if (count[1] == 1 &&
+            count[2] == 1 &&
+            count[3] == 1 &&
+            count[4] == 1 &&
+            count[5] == 1)
             return BIG_STRAIGHT_VALUE;
         return DEFAULT_VALUE_INVALID;
     }
@@ -149,17 +137,17 @@ public class Yatzy {
         for (int diceValue=0;diceValue<counts.length;diceValue++) {
             if (counts[diceValue] == 3) {
                 int points=calculValueByTimes(diceValue, 3);
-                if (gotPairYet) {
+                if (gotPairYet)
                     return points + previousPoints;
-                }
+
                 previousPoints = points;
                 gotTrippleYet = true;
 
             }else if(counts[diceValue] == 2){
                 int points=calculValueByTimes(diceValue, 2);
-                if (gotTrippleYet) {
+                if (gotTrippleYet)
                     return points + previousPoints;
-                }
+
                 previousPoints = points;
                 gotPairYet=true;
             }
