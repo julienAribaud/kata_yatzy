@@ -1,3 +1,5 @@
+package fr.yatzy;
+
 public class Yatzy {
 
     private static final int NUMBER_OF_DICE =5;
@@ -8,14 +10,10 @@ public class Yatzy {
     private static final int BIG_STRAIGHT_VALUE=20;
     private static final int YATZY_VALUE=50;
 
-    protected int[] dices= new int[NUMBER_OF_DICE];
+    private final int[] dices;
 
-    public Yatzy(int d1, int d2, int d3, int d4, int d5) {
-        dices[0] = d1;
-        dices[1] = d2;
-        dices[2] = d3;
-        dices[3] = d4;
-        dices[4] = d5;
+    public Yatzy(int ... dices){
+        this.dices=dices;
     }
 
     public int chance() {
@@ -103,26 +101,24 @@ public class Yatzy {
         return searchAndCalculSameValueNTimes(4);
     }
 
-    public int smallStraight() {
+    private boolean hasStraightStartBy(int straightValueStart){
         int[] count=countDiceValues();
+        straightValueStart--;
+        for(int diceValue=straightValueStart;diceValue<straightValueStart+NUMBER_OF_DICE;diceValue++){
+            if(count[diceValue]!=1)
+                return false;
+        }
+        return true;
+    }
 
-        if (count[0] == 1 &&
-            count[1] == 1 &&
-            count[2] == 1 &&
-            count[3] == 1 &&
-            count[4] == 1)
+    public int smallStraight() {
+        if (hasStraightStartBy(1))
             return SMALL_STRAIGHT_VALUE;
         return DEFAULT_VALUE_INVALID;
     }
 
     public int largeStraight() {
-        int[] count=countDiceValues();
-
-        if (count[1] == 1 &&
-            count[2] == 1 &&
-            count[3] == 1 &&
-            count[4] == 1 &&
-            count[5] == 1)
+        if (hasStraightStartBy(2))
             return BIG_STRAIGHT_VALUE;
         return DEFAULT_VALUE_INVALID;
     }
